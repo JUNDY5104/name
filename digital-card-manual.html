@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>やきさかな式 電子名刺ツール ライト版 取扱説明書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ── リセット・基本 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8f8f6;
+  color: #1a1a2e;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ── CSS変数 ── */
+:root {
+  --navy: #1a2a4a;
+  --navy-light: #243659;
+  --gold: #c9a84c;
+  --gold-light: #f5eed8;
+  --gold-dark: #a8862e;
+  --bg: #f8f8f6;
+  --white: #ffffff;
+  --border: #e0ddd6;
+  --muted: #6b6b7a;
+  --heading: #1a2a4a;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(26,42,74,.10);
+}
+
+/* ── ヒーロー ── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #2a4070 60%, #1a3060 100%);
+  color: #fff;
+  padding: 72px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: rgba(201,168,76,.12);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(201,168,76,.08);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(201,168,76,.25);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(201,168,76,.4);
+}
+.hero h1 {
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 900;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.hero h1 span { color: var(--gold); }
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,.75);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── スティッキーナビ ── */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--navy);
+}
+.sticky-nav::-webkit-scrollbar { height: 3px; }
+.sticky-nav::-webkit-scrollbar-track { background: var(--navy); }
+.sticky-nav::-webkit-scrollbar-thumb { background: var(--gold); }
+.nav-inner {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  padding: 0 12px;
+}
+.nav-item {
+  display: block;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color .2s, border-color .2s;
+}
+.nav-item:hover,
+.nav-item.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ── ラッパー ── */
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── セクション ── */
+.section {
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.section-num {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--heading);
+}
+.section-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+}
+
+/* ── カード ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── ステップ ── */
+.steps { display: flex; flex-direction: column; gap: 16px; }
+.step {
+  display: flex;
+  gap: 16px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--gold);
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body { flex: 1; }
+.step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── ルート ── */
+.routes { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 20px 0; }
+.route-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--gold);
+  text-align: center;
+}
+.route-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  letter-spacing: .1em;
+  margin-bottom: 6px;
+}
+.route-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 6px;
+}
+.route-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── テーブル ── */
+.tbl-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--radius); box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; background: var(--white); font-size: 13px; }
+th {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+}
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--gold-light); }
+
+/* ── 情報ボックス ── */
+.info-box {
+  background: #eef3ff;
+  border-left: 4px solid #4a7adb;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #1a3060;
+  margin: 16px 0;
+  line-height: 1.7;
+}
+.warn-box {
+  background: #fff8e8;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #6b4c00;
+  margin: 16px 0;
+  line-height: 1.7;
+}
+.tip-box {
+  background: #f0faf3;
+  border-left: 4px solid #2a9a5a;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #1a4a2a;
+  margin: 16px 0;
+  line-height: 1.7;
+}
+
+/* ── モックアップ ── */
+.mockup-wrap {
+  background: #d8d8d8;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+.mock-phone {
+  width: 240px;
+  background: var(--navy);
+  border-radius: 28px;
+  padding: 24px 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.mock-avatar {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #f0d080);
+  border: 2px solid rgba(201,168,76,.6);
+}
+.mock-logo {
+  width: 48px; height: 22px;
+  background: #e53030;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: #fff; font-weight: 900;
+}
+.mock-name { font-size: 14px; font-weight: 900; color: #fff; text-align: center; }
+.mock-tag { font-size: 10px; color: rgba(255,255,255,.7); text-align: center; }
+.mock-divider { width: 40px; height: 1px; background: rgba(201,168,76,.5); }
+.mock-qr {
+  width: 90px; height: 90px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: #888;
+}
+.mock-btn {
+  width: 100%;
+  background: rgba(255,255,255,.15);
+  border-radius: 20px;
+  padding: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: #fff;
+  font-weight: 700;
+}
+.mock-btn.green { background: #06C755; }
+.mock-label { font-size: 9px; color: rgba(255,255,255,.5); text-align: center; }
+
+/* ── ファイル構成図 ── */
+.file-tree {
+  background: var(--navy);
+  color: #e0e8ff;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 2;
+  margin: 16px 0;
+}
+.file-tree .folder { color: var(--gold); font-weight: 700; }
+.file-tree .file { color: #a0d0ff; }
+.file-tree .comment { color: rgba(255,255,255,.4); font-size: 11px; }
+
+/* ── FAQアコーディオン ── */
+.faq-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%;
+  text-align: left;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--heading);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.faq-q:hover { background: var(--gold-light); }
+.faq-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform .25s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  display: none;
+  padding: 0 20px 16px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ── ツールチップ ── */
+.tt {
+  position: relative;
+  border-bottom: 1px dashed var(--gold);
+  cursor: help;
+}
+.tt::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  transform: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: normal;
+  width: 220px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+  z-index: 20;
+}
+.tt:hover::after { opacity: 1; }
+
+/* ── TOPボタン ── */
+.top-btn {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 8px 22px;
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  color: var(--gold-dark);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.top-btn:hover { background: var(--gold); color: var(--navy); }
+
+/* ── Coconalaバナー ── */
+.coconala-banner {
+  background: linear-gradient(135deg, #6a0dad 0%, #9b30e8 60%, #6a0dad 100%);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.coconala-text h3 { font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+.coconala-text p { font-size: 12px; color: rgba(255,255,255,.8); }
+.coconala-btn {
+  display: inline-block;
+  background: #fff;
+  color: #6a0dad;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 10px 24px;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .2s;
+}
+.coconala-btn:hover { opacity: .85; }
+
+/* ── フッター ── */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,.6);
+  text-align: center;
+  padding: 32px 20px;
+  font-size: 12px;
+}
+footer strong { color: var(--gold); }
+
+/* ── レスポンシブ ── */
+@media(max-width: 640px) {
+  .hero { padding: 48px 16px 40px; }
+  .wrap { padding: 0 14px; }
+  .section { padding: 40px 0 36px; }
+  .card { padding: 18px 16px; }
+  .step { padding: 16px; gap: 12px; }
+  .routes { grid-template-columns: 1fr 1fr; }
+  .coconala-banner { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-badge">やきさかな式 公式ツール</div>
+  <h1>電子名刺ツール<br><span>ライト版</span> 取扱説明書</h1>
+  <p class="hero-sub">名刺を渡した瞬間からリスト構築が始まる。スマートな電子名刺の作り方をステップごとに解説します。</p>
+</div>
+
+<!-- スティッキーナビ -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-item" href="#s1">概要</a>
+    <a class="nav-item" href="#s2">準備</a>
+    <a class="nav-item" href="#s3">基本情報</a>
+    <a class="nav-item" href="#s4">テーマ</a>
+    <a class="nav-item" href="#s5">集客ルート</a>
+    <a class="nav-item" href="#s6">告知エリア</a>
+    <a class="nav-item" href="#s7">ZIP生成・公開</a>
+    <a class="nav-item" href="#s8">名刺の使い方</a>
+    <a class="nav-item" href="#s9">よくある質問</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- S1: 概要 -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2 class="section-title">このツールでできること</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">電子名刺セットを自動生成するツールです</div>
+    <p>必要な情報を入力してボタンを押すだけで、4つのHTMLファイルと画像フォルダをまとめたZIPファイルが生成されます。GitHubまたはXserverにアップするだけで、すぐに使える電子名刺が完成します。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>生成されるファイル</th><th>用途</th><th>使う人</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>landing.html</strong></td>
+          <td>QRコードの読み取り先。相手がスマホで開くページ</td>
+          <td>相手</td>
+        </tr>
+        <tr>
+          <td><strong>profile.html</strong></td>
+          <td>SNS・リンクまとめ・リードマグネット表示</td>
+          <td>相手</td>
+        </tr>
+        <tr>
+          <td><strong>card.html</strong></td>
+          <td>QRコード付き名刺。スマホで見せて使う</td>
+          <td>自分</td>
+        </tr>
+        <tr>
+          <td><strong>about.html</strong></td>
+          <td>自己紹介ページ（任意）</td>
+          <td>相手</td>
+        </tr>
+        <tr>
+          <td><strong>images/</strong></td>
+          <td>アバター・ロゴ・バナー等の画像フォルダ</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mockup-wrap">
+    <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:flex-start;">
+      <div style="text-align:center;">
+        <div class="mock-phone">
+          <div class="mock-avatar"></div>
+          <div class="mock-logo">JD</div>
+          <div class="mock-name">元飲食店店長サム</div>
+          <div class="mock-tag">飲食店30年xAI活用の実践者</div>
+          <div class="mock-divider"></div>
+          <div class="mock-qr">QR</div>
+          <div class="mock-btn">プロフィールを見る</div>
+          <div class="mock-btn green">LINEで受け取る</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;">landing.html</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="mock-phone" style="background:#fff;border:1px solid var(--border);">
+          <div class="mock-avatar" style="background:linear-gradient(135deg,#1a2a4a,#2a4070);"></div>
+          <div class="mock-name" style="color:#1a2a4a;">元飲食店店長サム</div>
+          <div class="mock-tag" style="color:#6b6b7a;">飲食店30年xAI活用の実践者</div>
+          <div class="mock-divider" style="background:rgba(26,42,74,.3);"></div>
+          <div style="width:90px;height:90px;background:#f0f0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#888;">QR</div>
+          <div class="mock-btn" style="background:var(--navy);color:#fff;">スキャンしてください</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;">card.html（自分用）</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S2: 準備 -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2 class="section-title">準備するもの</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="warn-box">
+    アバター画像は必須です。名前・肩書きとあわせて、この3点を用意してから作業を始めてください。
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>項目</th><th>必須</th><th>推奨サイズ・形式</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>アバター画像</td>
+          <td>必須</td>
+          <td>正方形・400px以上</td>
+          <td>顔写真・アイコン等</td>
+        </tr>
+        <tr>
+          <td>会社ロゴ</td>
+          <td>任意</td>
+          <td>横長・PNG推奨</td>
+          <td>透過PNGだと綺麗に出る</td>
+        </tr>
+        <tr>
+          <td>背景画像</td>
+          <td>任意</td>
+          <td>1080px以上の横長</td>
+          <td>なければテーマカラーで代替</td>
+        </tr>
+        <tr>
+          <td>OGP画像</td>
+          <td>任意</td>
+          <td>1200x630px</td>
+          <td>未設定時は名刺デザインを自動生成</td>
+        </tr>
+        <tr>
+          <td>バナー画像</td>
+          <td>任意</td>
+          <td>横長・任意サイズ</td>
+          <td>Kindle・サービス告知等に使用</td>
+        </tr>
+        <tr>
+          <td>リードマグネット画像</td>
+          <td>任意</td>
+          <td>1200x630px推奨</td>
+          <td>LINE・メルマガ特典の告知に使用</td>
+        </tr>
+        <tr>
+          <td>GitHubアカウント</td>
+          <td>公開に必要</td>
+          <td>-</td>
+          <td>無料。Xserverでも可</td>
+        </tr>
+        <tr>
+          <td>Formspreeアカウント</td>
+          <td>任意</td>
+          <td>-</td>
+          <td>問い合わせフォームを使う場合</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box">
+    画像はすべてツール上でアップロードします。ZIPの<strong>images/</strong>フォルダに自動格納されるため、別途用意する必要はありません。
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S3: 基本情報 -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2 class="section-title">基本情報の入力</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p style="margin-bottom:20px;">ツールの「基本情報」「プロフィール」セクションで入力します。入力内容はブラウザに自動保存されるため、途中で閉じても再開できます。</p>
+
+  <div class="card">
+    <div class="card-title">名刺面に表示される項目</div>
+    <div class="tbl-wrap" style="box-shadow:none;margin:0;">
+      <table style="box-shadow:none;">
+        <thead><tr><th>項目</th><th>必須</th><th>説明</th></tr></thead>
+        <tbody>
+          <tr><td>アバター画像</td><td>必須</td><td>円形にトリミングして表示</td></tr>
+          <tr><td>名前</td><td>必須</td><td>大きく表示されるメインの名前</td></tr>
+          <tr><td>肩書き</td><td>必須</td><td>名前の下に表示</td></tr>
+          <tr><td>英語表記</td><td>任意</td><td>名前・肩書き・会社名の英語併記</td></tr>
+          <tr><td>会社名</td><td>任意</td><td>所属・屋号等</td></tr>
+          <tr><td>会社ロゴ</td><td>任意</td><td>アバターの下に小さく表示</td></tr>
+          <tr><td>背景画像</td><td>任意</td><td>テーマカラーと切り替えで選択</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">プロフィールページに表示される項目</div>
+    <div class="tbl-wrap" style="box-shadow:none;margin:0;">
+      <table style="box-shadow:none;">
+        <thead><tr><th>カテゴリ</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>SNS・連絡先</td><td>X / Instagram / Facebook / YouTube / TikTok / LinkedIn / LINE公式 / Chatwork / メール / 電話 / 住所</td></tr>
+          <tr><td>コンテンツ・販売</td><td>note / Brain / Kindle / Coconala / 公式サイト / ポートフォリオ</td></tr>
+          <tr><td>事業者向け</td><td>事業説明 / サービス一覧 / 営業時間 / 会社案内PDF / 打ち合わせ予約 / Zoom説明会</td></tr>
+          <tr><td>カスタムリンク</td><td>ラベル＋URLで自由に追加（複数可）</td></tr>
+          <tr><td>バナー</td><td>画像＋リンク＋キャプション（複数可）</td></tr>
+          <tr><td>問い合わせフォーム</td><td><span class="tt" data-tip="Formspreeのエンドポイントを入力するとプロフィールページに問い合わせフォームが設置されます">Formspree</span>のエンドポイントを入力</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    入力内容はブラウザの<span class="tt" data-tip="ブラウザがデータをローカルに保存する仕組みです。同じブラウザで開けば次回も入力済みの状態で表示されます">localStorage</span>に保存されます。別のブラウザや別のデバイスでは引き継がれません。
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S4: テーマ -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2 class="section-title">テーマ・デザイン設定</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p style="margin-bottom:20px;">15種類のテーマから選択します。後から変更して再生成することも可能です。</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>カテゴリ</th><th>テーマ名</th></tr></thead>
+      <tbody>
+        <tr><td>ビジネス系</td><td>モノトーン（白x黒）/ ネイビーxホワイト / チャコールxゴールド</td></tr>
+        <tr><td>クリエイター系</td><td>ミッドナイト（黒x紫）/ ダークグリーンxベージュ / インディゴxオレンジ</td></tr>
+        <tr><td>やわらか系</td><td>ピンクxホワイト / ラベンダーxグレー / アイボリーxブラウン</td></tr>
+        <tr><td>和風系</td><td>墨x朱 / 藍x白 / 抹茶x金</td></tr>
+        <tr><td>ポップ系</td><td>イエローxブラック / コーラルxホワイト / ミントxネイビー</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box">
+    テーマカラーによってボタン・ラベル・アクセントの色が自動で変わります。背景が明るいテーマでは文字色が自動で黒に、暗いテーマでは白になります。
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S5: 集客ルート -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2 class="section-title">集客ルート設定</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p style="margin-bottom:20px;">名刺を受け取った相手への導線を4つのルートから設定できます。それぞれlanding.html（名刺ページ）とprofile.html（プロフィールページ）に個別にON/OFFで設定可能です。</p>
+
+  <div class="routes">
+    <div class="route-card">
+      <div class="route-label">ルート A</div>
+      <div class="route-name">LINE公式</div>
+      <div class="route-desc">LINEリストへ誘導。リードマグネット（特典画像＋テキスト）も設定可</div>
+    </div>
+    <div class="route-card" style="opacity:.5;border-top-color:#aaa;">
+      <div class="route-label" style="color:#888;">ルート B</div>
+      <div class="route-name">Web Push</div>
+      <div class="route-desc">プロ版のみ対応</div>
+    </div>
+    <div class="route-card">
+      <div class="route-label">ルート C</div>
+      <div class="route-name">メルマガ</div>
+      <div class="route-desc">メルマガ登録ページへ誘導。ボタンラベルとリードマグネットを設定可</div>
+    </div>
+    <div class="route-card">
+      <div class="route-label">ルート D</div>
+      <div class="route-name">ブックマーク</div>
+      <div class="route-desc">URLコピーボタンとホーム画面追加案内を表示</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    ルートAのLINE URLは「SNS欄から引用」ボタンでSNS欄に入力済みのURLを自動入力できます。2回入力する必要はありません。
+  </div>
+
+  <div class="card">
+    <div class="card-title">リードマグネットとは</div>
+    <p>ルートA（LINE）とルートC（メルマガ）には、登録を促す特典情報を表示できます。特典テキストと特典画像（推奨：1200x630px）を設定すると、profile.htmlのボタン上部に表示されます。</p>
+    <div class="info-box" style="margin-top:12px;">
+      リードマグネットの画像・テキストはprofile.htmlのみに表示されます。landing.html（名刺ページ）はシンプルさを保つためボタンのみ表示されます。
+    </div>
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S6: 告知エリア -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2 class="section-title">告知エリアの設定</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p style="margin-bottom:20px;">キャンペーンやお知らせをlanding.html・profile.htmlに表示できます。複数登録でき、表示期間を日付で制御できます。</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>必須</th><th>説明</th></tr></thead>
+      <tbody>
+        <tr><td>ラベル</td><td>必須</td><td>「期間限定」「新着」等の短いタグ</td></tr>
+        <tr><td>告知テキスト</td><td>必須</td><td>告知の本文</td></tr>
+        <tr><td>リンクURL</td><td>任意</td><td>「詳しくはこちら」ボタンのリンク先</td></tr>
+        <tr><td>ボタンテキスト</td><td>任意</td><td>ボタンのラベル（デフォルト：詳しくはこちら）</td></tr>
+        <tr><td>画像</td><td>任意</td><td>profile.htmlのカード上部に表示</td></tr>
+        <tr><td>表示開始日</td><td>任意</td><td>この日より前は非表示</td></tr>
+        <tr><td>表示終了日</td><td>任意</td><td>この日を過ぎると自動で非表示</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn-box">
+    「表示開始日」はその告知を表示し始める日付です。キャンペーン開始日と同じかそれ以前の日付を設定してください。設定した日付より前だと表示されません。
+  </div>
+
+  <div class="tip-box">
+    告知は複数追加できます。告知が不要な場合は追加しないか、テキストを空にしてください。テキストが空の告知は自動的に除外されます。
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S7: ZIP生成・公開 -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2 class="section-title">ZIPを生成してアップロードする</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">OGP画像の設定（任意）</div>
+        <div class="step-desc">SNSでシェアされたときのサムネイル画像です。アップロードしない場合は名刺デザインが自動で画像化されます。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">「ZIPを生成してダウンロード」をクリック</div>
+        <div class="step-desc">必須項目（アバター・名前・肩書き）が入力済みであることを確認してからクリックしてください。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">ZIPを展開する</div>
+        <div class="step-desc">ダウンロードされたZIPファイルを展開します。フォルダ構成はそのままにしてください。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">フォルダごとアップロードする</div>
+        <div class="step-desc">HTMLファイルとimagesフォルダを同じ階層のままGitHub PagesまたはXserverにアップロードします。card.htmlはアップロード不要です。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="file-tree">
+    <div><span class="folder">アップロードする構成</span></div>
+    <div>├── <span class="file">landing.html</span> <span class="comment">← QRの読み取り先</span></div>
+    <div>├── <span class="file">profile.html</span> <span class="comment">← リンクまとめページ</span></div>
+    <div>├── <span class="file">about.html</span> <span class="comment">← 作成した場合のみ</span></div>
+    <div>└── <span class="folder">images/</span> <span class="comment">← 必ずフォルダごと</span></div>
+    <div style="margin-top:12px;color:rgba(255,255,255,.4);">card.html はアップロード不要（スマホで使うため）</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">GitHub Pagesでの公開手順</div>
+    <div class="steps" style="margin-top:12px;">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">GitHubにリポジトリを作成</div>
+          <div class="step-desc">リポジトリ名は半角英数字で（例：my-card）。Publicに設定。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">ファイルをアップロード</div>
+          <div class="step-desc">「Add file」→「Upload files」で、展開したフォルダの中身（landing.html・profile.html・images/フォルダ）をすべて選択してアップロード。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">GitHub Pagesを有効化</div>
+          <div class="step-desc">Settings → Pages → Branch を「main」に変更して「Save」をクリック。数分後に公開されます。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">公開URLを確認</div>
+          <div class="step-desc">https://ユーザー名.github.io/リポジトリ名/landing.html がlanding.htmlのURLになります。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S8: card.htmlの使い方 -->
+<section class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2 class="section-title">QRコード名刺の使い方</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p style="margin-bottom:20px;">landing.htmlの公開URLが確定したら、QRコード入りの名刺を生成します。</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">ツールに戻り、landing.htmlのURLを入力</div>
+        <div class="step-desc">「QRコード付きcard.htmlを再生成する」欄に、公開後に確定したURLを入力します。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">card.htmlまたはPNG画像を生成</div>
+        <div class="step-desc">「QR付きcard.htmlを再生成」ボタンでHTMLファイル、「QR付き名刺画像（PNG）を生成」ボタンで画像ファイルをダウンロードできます。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">スマホに保存する</div>
+        <div class="step-desc">生成したcard.htmlまたはPNG画像をスマホに転送・保存します。サーバーへのアップロードは不要です。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">名刺交換で使う</div>
+        <div class="step-desc">名刺交換の際にスマホ画面を相手に見せて、QRコードを読み取ってもらいます。相手のスマホでlanding.htmlが開きます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    スマホのホーム画面にcard.htmlを追加しておくと、アプリのようにすぐ開けて便利です。iPhoneの場合はSafariで開いて「共有」→「ホーム画面に追加」、Androidは「メニュー」→「ホーム画面に追加」で追加できます。
+  </div>
+
+  <div class="card">
+    <div class="card-title">内容を変更したいときは</div>
+    <p>プロフィール情報や告知を更新したい場合は、ツールで修正してからZIPを再生成し、フォルダごとアップロードし直してください。landing.htmlのURLが変わらない限り、QRコードの再生成は不要です。</p>
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- S9: よくある質問 -->
+<section class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <h2 class="section-title">よくある質問</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      入力したデータはどこに保存されますか？
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">ブラウザのlocalStorageに保存されます。同じブラウザで開けば次回も入力済みの状態で再開できます。別のブラウザや別のデバイスには引き継がれません。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      告知を設定したのに表示されません
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">「表示開始日」の設定を確認してください。設定した日付より前だと自動的に非表示になります。表示開始日は告知を表示し始める日付です。今日以前の日付を設定するか、空白にすると即時表示されます。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      card.htmlを開いてもアバターが表示されません
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">card.htmlはimages/フォルダと同じ場所に置かないと画像が表示されません。ローカルで確認する場合はZIPを展開したフォルダごと開いてください。スマホで使う場合はサーバーにアップ後の確認は不要です。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      SNSでシェアしてもOGP画像が表示されません
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">landing.htmlのURLをツールに入力した状態でZIPを生成しているか確認してください。URLを入力せずに生成するとog:imageが相対パスになるため、SNSでは表示されません。また、XのCard Validatorにかけるとキャッシュがリフレッシュされます。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      GitHub Pagesにアップ後404エラーになります
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">Settings → Pages でGitHub Pagesが有効になっているか確認してください。有効化後も反映に数分かかる場合があります。ブランチが「main」に設定されていることも確認してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      問い合わせフォームを使うにはどうすればよいですか？
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">Formspree（formspree.io）に無料登録してフォームを作成し、発行されるエンドポイントURL（https://formspree.io/f/xxxxxxxx）をツールの「問い合わせフォーム」欄に入力してください。無料プランは月50件まで受信できます。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      他の人にもこのツールを使わせることはできますか？
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">はい。ツールのURLを共有するだけで、別の人が自分の名刺を作れます。入力データは各自のブラウザに保存されるため、データが混在することはありません。</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      プロ版との違いは何ですか？
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">プロ版では内容のリアルタイム更新（再アップ不要）、Web Push通知によるリスト構築、GAS管理画面、購読者数の確認ができます。ライト版では内容を変更するたびにZIPを再生成してアップロードし直す必要があります。</div>
+  </div>
+
+  <a href="#" class="top-btn">ページ上部へ</a>
+</section>
+
+<!-- Coconalaバナー -->
+<div class="coconala-banner">
+  <div class="coconala-text">
+    <h3>電子名刺の設定をお任せください</h3>
+    <p>初期設定・フルカスタム対応。Coconalaで承っています。</p>
+  </div>
+  <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener" class="coconala-btn">Coconalaで依頼する</a>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <p><strong>やきさかな式 電子名刺ツール ライト版</strong> 取扱説明書</p>
+  <p style="margin-top:6px;">元飲食店店長サム（@sum_tenchou）</p>
+</footer>
+
+<script>
+// FAQアコーディオン
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+// スクロールアニメーション
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.section').forEach(s => obs.observe(s));
+
+// ナビアクティブ
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      navItems.forEach(n => n.classList.remove('active'));
+      const id = e.target.getAttribute('id');
+      const active = document.querySelector(`.nav-item[href="#${id}"]`);
+      if(active){
+        active.classList.add('active');
+        active.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+      }
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>
