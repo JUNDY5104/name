@@ -1285,7 +1285,7 @@ async function generateZip(){
       biz: { desc: v('biz_desc'), services: v('biz_services'), hours: v('biz_hours'), pdf: v('biz_pdf'), booking: v('biz_booking'), zoom: v('biz_zoom'), zoomNote: v('biz_zoom_note') },
       formspree: v('formspree'),
       announcements,
-      landingUrl: '',
+      landingUrl: v('landingUrl').trim(),
       aboutMode: v('aboutMode'), about_url: v('about_url'), about_title: v('about_title') || '自己紹介', about_text: v('about_text'),
       theme: selectedTheme, customLinks, banners, bannerFiles, announceFiles,
       routes: {
