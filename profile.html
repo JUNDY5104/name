@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>元飲食店店長サム | プロフィール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:#f4f4f4;color:#1a1a1a;min-height:100vh;}
+.hero{background:#2d2d2d;padding:40px 20px 20px;text-align:center;position:relative;}
+.hero::after{content:'';display:block;height:40px;background:linear-gradient(180deg,#2d2d2d,transparent);position:absolute;bottom:-40px;left:0;right:0;}
+.avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid #c9a84c;box-shadow:0 2px 12px rgba(0,0,0,.2);margin-bottom:14px;}
+.logo{max-height:32px;max-width:110px;object-fit:contain;margin-bottom:10px;}
+.name{font-size:22px;font-weight:700;color:#ffffff;margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,.4);}
+.name-en{font-size:12px;color:rgba(255,255,255,.72);margin-bottom:2px;}
+.tagline{font-size:13px;color:rgba(255,255,255,.88);margin-bottom:6px;}
+.company{font-size:12px;color:rgba(255,255,255,.62);}
+.content{max-width:520px;margin:60px auto 0;padding:0 16px 60px;}
+.prof-section{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 8px rgba(0,0,0,.07);}
+.prof-section-title{font-size:13px;font-weight:700;color:#2d2d2d;letter-spacing:.08em;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #c9a84c;}
+.link-btn{display:block;padding:12px 20px;background:#f0f0f0;color:#1a1a1a;border-radius:10px;text-decoration:none;font-size:14px;font-weight:500;margin-bottom:10px;text-align:center;transition:.15s;}
+.link-btn:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.sns-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.sns-btn{padding:12px;background:#f0f0f0;color:#1a1a1a;border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.15s;}
+.sns-btn:hover{transform:translateY(-1px);}
+.sns-icon{font-size:18px;}
+.contact-row{display:flex;gap:12px;margin-bottom:10px;align-items:center;flex-wrap:wrap;}
+.contact-label{font-size:12px;font-weight:700;color:#2d2d2d;min-width:50px;}
+.contact-val{font-size:13px;color:#1a1a1a;word-break:break-all;}
+a.contact-val{color:#2d2d2d;}
+.info-row{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap;align-items:center;}
+.info-label{font-size:12px;font-weight:700;color:#2d2d2d;min-width:70px;}
+.biz-desc{font-size:13px;line-height:1.8;margin-bottom:12px;color:#444;}
+.svc-list{padding-left:20px;margin-bottom:12px;}
+.svc-list li{font-size:13px;line-height:1.8;color:#444;}
+.banner-item{margin-bottom:14px;}
+.banner-cap{font-size:12px;color:#666;margin-top:6px;text-align:center;}
+.contact-form input,.contact-form textarea{width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-family:'Noto Sans JP',sans-serif;font-size:13px;margin-top:4px;}
+.form-fld{margin-bottom:12px;}
+.form-fld label{font-size:12px;font-weight:700;color:#2d2d2d;}
+.form-submit{width:100%;padding:13px;background:#2d2d2d;color:#ffffff;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;margin-top:8px;}
+.back-btn{display:block;text-align:center;padding:14px;background:#2d2d2d;color:#ffffff;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:16px;}
+.copy-url-area{background:#f8f8f8;border-radius:10px;padding:14px;text-align:center;}
+.copy-url-btn{padding:10px 20px;background:#c9a84c;color:#2d2d2d;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.copy-msg{font-size:12px;color:#666;margin-top:6px;height:16px;}
+.bookmark-note{font-size:11px;color:#888;text-align:center;margin-top:8px;}
+.home-add-area{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 8px rgba(0,0,0,.07);}
+.home-add-title{font-size:13px;font-weight:700;color:#2d2d2d;letter-spacing:.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #c9a84c;}
+.home-add-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+.home-add-num{background:#2d2d2d;color:#ffffff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.home-add-body{flex:1;}
+.home-add-os{font-size:11px;font-weight:700;color:#2d2d2d;margin-bottom:2px;}
+.home-add-desc{font-size:12px;color:#555;line-height:1.7;}
+.home-add-note{font-size:11px;color:#888;margin-top:10px;padding-top:10px;border-top:1px solid #eee;text-align:center;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <img src="images/avatar.jpeg" alt="元飲食店店長サム" class="avatar">
+  
+  <div class="name">元飲食店店長サム</div>
+  
+  <div class="tagline">飲食店30年×AI活用の実践者/Kindle著者</div>
+  
+</div>
+<div class="content">
+  <div style="max-width:520px;margin:0 auto;padding:20px 16px 0;">
+<div data-from="2026-06-26" data-to="2026-07-02" style="background:#fff;border-left:4px solid #c9a84c;border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.08);">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+    <span style="background:#2d2d2d;color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;letter-spacing:.06em;">期間限定</span>
+    <span style="font-size:11px;color:#888;">2026-06-26 〜 2026-07-02</span>
+  </div>
+  <img src="images/announce1.png" alt="" style="width:100%;border-radius:6px;margin-bottom:10px;display:block;">
+  <p style="font-size:13px;color:#333;line-height:1.7;margin:0 0 8px;">Kindle本無料キャンペーン実施中！6/27~7/1まで！</p>
+  <a href="https://amzn.asia/d/07wG3jzs" target="_blank" rel="noopener" style="display:inline-block;padding:7px 18px;background:#2d2d2d;color:#fff;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;">詳しくはこちら</a>
+</div>
+</div>
+  <a href="landing.html" class="back-btn" style="margin-top:8px">名刺ページへ戻る</a>
+
+  
+  <div class="prof-section">
+    <div class="prof-section-title">LINE公式アカウント</div>
+    
+    <a href="https://t.co/dJuBjiMkpK" target="_blank" rel="noopener" class="link-btn" style="background:#06C755;color:#fff;font-weight:700;">LINEで受け取る</a>
+  </div>
+  
+  <div class="prof-section"><div class="prof-section-title">SNS・連絡先</div><div class="sns-grid"><a href="https://x.com/sum_tenchou" target="_blank" rel="noopener" class="sns-btn"><span class="sns-icon">&#120143;</span>X（Twitter）</a><a href="https://t.co/dJuBjiMkpK" target="_blank" rel="noopener" class="sns-btn"><span class="sns-icon">&#76;</span>LINE公式</a><a href="https://www.chatwork.com/Shigeru4841" target="_blank" rel="noopener" class="sns-btn"><span class="sns-icon">&#67;</span>Chatwork</a></div><div style="margin-top:14px"><div class="contact-row"><span class="contact-label">メール</span><a href="mailto:jundi5104@gmail.com" class="contact-val">jundi5104@gmail.com</a></div><div class="contact-row"><span class="contact-label">電話</span><span class="contact-val">090-6712-3374</span></div></div></div>
+  <div class="prof-section"><div class="prof-section-title">コンテンツ・販売</div><a href="https://note.com/sumtenchou_5636" class="link-btn" target="_blank" rel="noopener" style="">note</a><a href="https://www.amazon.co.jp/stores/%E5%85%83%E9%A3%B2%E9%A3%9F%E5%BA%97%E5%BA%97%E9%95%B7%E3%82%B5%E3%83%A0/author/B0GKYJ1YRN?ref=ap_rdr&shoppingPortalEnabled=true" class="link-btn" target="_blank" rel="noopener" style="">Kindle</a><a href="https://coconala.com/services/3034205" class="link-btn" target="_blank" rel="noopener" style="">Coconala</a></div>
+  <div class="prof-section"><div class="prof-section-title">自己紹介</div><a href="https://ameblo.jp/sumtenchou/entry-12868975314.html" class="link-btn" target="_blank" rel="noopener" style="">詳しい自己紹介を読む</a></div>
+  <div class="prof-section"><div class="prof-section-title">事業・サービス</div><p class="biz-desc">やきさかな式<br>元飲食店チェーン店長として30年のキャリアを経た後、北海道→千葉でAIコンテンツ事業を展開しています。<br>「文系のおじさんでもAIは使える」をテーマに、Kindle出版・HTML解説書制作・AI活用講座の配信を行っています。<br>AI活用を「難しいもの」から「自分の言葉で話しかけるだけのもの」に変えることが、私の仕事です。</p><ul class="svc-list"><li>AIツール導入コンサルティング</li></ul></div>
+  <div class="prof-section"><div class="prof-section-title">リンク</div><a href="https://amzn.asia/d/0any1OES" class="link-btn" target="_blank" rel="noopener" style="">Kindle本第１弾「やきさかな式生成AIの使い方」</a><a href="https://amzn.asia/d/02Vsgd24" class="link-btn" target="_blank" rel="noopener" style="">Kindle本第２弾「バカがAIを支配する」</a></div>
+  <div class="prof-section"><div class="prof-section-title"></div><div class="banner-item">
+      <a href="https://amzn.asia/d/03fW4mJd" target="_blank" rel="noopener">
+      <img src="images/banner1.png" alt="バカがAIを支配する" style="width:100%;border-radius:8px;">
+      <p class="banner-cap">バカがAIを支配する</p>
+      </a>
+    </div></div>
+  <div class="prof-section"><div class="prof-section-title">お問い合わせ</div><div class="contact-form">
+      <form action="https://formspree.io/f/xdargvrg" method="POST">
+        <input type="hidden" name="_subject" value="電子名刺からのお問い合わせ">
+        <div class="form-fld"><label>お名前</label><input type="text" name="name" required placeholder="山田 太郎"></div>
+        <div class="form-fld"><label>メールアドレス</label><input type="email" name="email" required placeholder="mail@example.com"></div>
+        <div class="form-fld"><label>メッセージ</label><textarea name="message" required rows="5" placeholder="お気軽にお問い合わせください"></textarea></div>
+        <button type="submit" class="form-submit">送信する</button>
+      </form>
+    </div></div>
+
+  <div class="home-add-area">
+    <div class="home-add-title">このページを保存する</div>
+    <div class="home-add-step">
+      <div class="home-add-num">1</div>
+      <div class="home-add-body">
+        <div class="home-add-os">iPhone（Safari）の場合</div>
+        <div class="home-add-desc">画面下部の共有ボタン（四角から上矢印）をタップ→「ホーム画面に追加」を選択</div>
+      </div>
+    </div>
+    <div class="home-add-step">
+      <div class="home-add-num">2</div>
+      <div class="home-add-body">
+        <div class="home-add-os">Android（Chrome）の場合</div>
+        <div class="home-add-desc">右上のメニュー（点3つ）をタップ→「ホーム画面に追加」を選択</div>
+      </div>
+    </div>
+    <div class="home-add-note">ホーム画面に追加するとアプリのように<br>いつでもすぐに開けます</div>
+  </div>
+  
+</div>
+<script>
+function copyURL(){
+  const u=location.href;
+  if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>showM());}
+  else{const t=document.createElement('textarea');t.value=u;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showM();}
+}
+function showM(){const m=document.getElementById('msg');if(m){m.textContent='URLをコピーしました';setTimeout(()=>m.textContent='',2500);}}
+document.querySelectorAll('[data-from],[data-to]').forEach(function(el){var from=el.dataset.from,to=el.dataset.to;if(!from&&!to)return;var today=new Date().toISOString().slice(0,10);if(from&&today<from){el.style.display='none';}if(to&&today>to){el.style.display='none';}});
+</script>
+</body>
+</html>
