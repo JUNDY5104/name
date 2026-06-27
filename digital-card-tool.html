@@ -346,6 +346,14 @@ footer{background:var(--navy);color:rgba(255,255,255,.7);text-align:center;paddi
         <div class="file-name" id="bgName"></div>
       </div>
     </div>
+    <div class="form-row">
+      <label>ホーム画面アイコン画像 <span class="badge-optional">任意</span></label>
+      <div id="iconPreview" style="display:none;margin-bottom:6px;"></div>
+      <input type="file" id="iconInput" accept="image/*" onchange="previewImage(this,'iconPreview','iconName')" style="font-size:12px;">
+      <div id="iconName" style="font-size:12px;color:var(--muted);margin-top:4px;"></div>
+      <button type="button" id="iconInput_del" style="display:none;margin-top:4px;font-size:11px;padding:2px 8px;background:#e55;color:#fff;border:none;border-radius:4px;cursor:pointer;" onclick="imageData.icon=null;document.getElementById('iconInput').value='';document.getElementById('iconPreview').style.display='none';document.getElementById('iconName').textContent='';this.style.display='none';">画像を削除</button>
+      <div class="form-hint">スマホのホーム画面に追加したときのアイコン画像です（推奨：180×180px正方形）。未設定の場合はアバター画像が使われます。</div>
+    </div>
   </div>
 
   <!-- 任意：個人・ビジネス情報 -->
@@ -1257,6 +1265,16 @@ async function generateZip(){
       } else { bannerFiles.push(null); }
     });
 
+    // ホーム画面アイコン画像（専用アップロードがあればそれを使用、なければアバターを使用）
+    let iconFile = null;
+    if(imageData.icon){
+      const ext = imageData.icon.type.split('/')[1] || 'png';
+      iconFile = 'icon.' + ext;
+      imgFolder.file(iconFile, dataURLtoBlob(imageData.icon.data));
+    } else {
+      iconFile = avatarFile; // アバターをフォールバック
+    }
+
     // リードマグネット特典画像
     let lm_a_imgFile = null, lm_c_imgFile = null;
     if(imageData.lm_a){ const ext=imageData.lm_a.type.split('/')[1]||'jpg'; lm_a_imgFile='lm_a.'+ext; imgFolder.file(lm_a_imgFile, dataURLtoBlob(imageData.lm_a.data)); }
@@ -1287,7 +1305,7 @@ async function generateZip(){
       announcements,
       landingUrl: v('landingUrl').trim(),
       aboutMode: v('aboutMode'), about_url: v('about_url'), about_title: v('about_title') || '自己紹介', about_text: v('about_text'),
-      theme: selectedTheme, customLinks, banners, bannerFiles, announceFiles,
+      theme: selectedTheme, customLinks, banners, bannerFiles, announceFiles, iconFile,
       routes: {
         a: { landing: document.getElementById('route_a_landing').checked, profile: document.getElementById('route_a_profile').checked, url: v('route_line_url') },
         c: { landing: document.getElementById('route_c_landing').checked, profile: document.getElementById('route_c_profile').checked, url: v('route_mag_url'), label: v('route_mag_label') || 'メルマガに登録する' },
@@ -1343,7 +1361,9 @@ async function regenCard(){
   const params = {
     name, tagline,
     company: v('company'), nameEn: v('nameEn'), taglineEn: v('taglineEn'),
-    avatarFile: 'avatar.' + (localStorage.getItem('dc_avatarExt') || (imageData.avatar ? imageData.avatar.type.split('/')[1] : null) || 'jpg'), logoFile: null, bgFile: null,
+    avatarFile: 'avatar.' + (localStorage.getItem('dc_avatarExt') || (imageData.avatar ? imageData.avatar.type.split('/')[1] : null) || 'jpg'),
+    iconFile: imageData.icon ? 'icon.' + (imageData.icon.type.split('/')[1] || 'png') : 'avatar.' + (localStorage.getItem('dc_avatarExt') || 'jpg'),
+    logoFile: null, bgFile: null,
     landingUrl, theme: selectedTheme
   };
   const blob = new Blob([buildCard(params)], {type:'text/html'});
@@ -1712,6 +1732,8 @@ function buildCard(p){
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="images/${p.iconFile}">
+<link rel="icon" href="images/${p.iconFile}">
 <title>${p.name} | デジタル名刺</title>
 ${ogpLandingUrl ? `<meta property="og:title" content="${p.name} | デジタル名刺">
 <meta property="og:description" content="${p.tagline}${p.company ? ' / ' + p.company : ''}">
@@ -1744,6 +1766,8 @@ body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh
 .qr-label{font-size:11px;letter-spacing:.08em;}
 @media(max-width:450px){body{background:${bg};padding:0;align-items:flex-start;}.card{border-radius:0;min-height:100vh;max-width:100%;box-shadow:none;}}
 </style>
+<link rel="apple-touch-icon" href="images/${p.iconFile}">
+<link rel="icon" href="images/${p.iconFile}">
 </head>
 <body>
 <div class="card">
@@ -2015,6 +2039,8 @@ a.contact-val{color:${t.bg};}
 .home-add-desc{font-size:12px;color:#555;line-height:1.7;}
 .home-add-note{font-size:11px;color:#888;margin-top:10px;padding-top:10px;border-top:1px solid #eee;text-align:center;line-height:1.6;}
 </style>
+<link rel="apple-touch-icon" href="images/${p.iconFile}">
+<link rel="icon" href="images/${p.iconFile}">
 </head>
 <body>
 <div class="hero">
