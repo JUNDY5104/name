@@ -1767,10 +1767,6 @@ body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh
 .qr-label{font-size:11px;letter-spacing:.08em;}
 @media(max-width:450px){body{background:${bg};padding:0;align-items:flex-start;}.card{border-radius:0;min-height:100vh;max-width:100%;box-shadow:none;}}
 </style>
-<link rel="apple-touch-icon" href="images/${p.iconFile}">
-<link rel="icon" href="images/${p.iconFile}">
-<meta name="apple-mobile-web-app-title" content="${p.name}">
-<title>${p.name} | デジタル名刺</title>
 </head>
 <body>
 <div class="card">
@@ -1815,6 +1811,9 @@ function buildLanding(p){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="images/${p.iconFile}">
+<link rel="icon" href="images/${p.iconFile}">
+<meta name="apple-mobile-web-app-title" content="${p.name}">
 <meta property="og:title" content="${p.name} | デジタル名刺">
 <meta property="og:description" content="${p.tagline}${p.company ? ' / ' + p.company : ''}">
 <meta property="og:image" content="${p.ogpImageFile ? 'images/ogp.jpg' : 'images/' + p.avatarFile}">
