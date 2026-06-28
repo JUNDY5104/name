@@ -1734,6 +1734,7 @@ function buildCard(p){
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="images/${p.iconFile}">
 <link rel="icon" href="images/${p.iconFile}">
+<meta name="apple-mobile-web-app-title" content="${p.name}">
 <title>${p.name} | デジタル名刺</title>
 ${ogpLandingUrl ? `<meta property="og:title" content="${p.name} | デジタル名刺">
 <meta property="og:description" content="${p.tagline}${p.company ? ' / ' + p.company : ''}">
@@ -1768,6 +1769,8 @@ body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh
 </style>
 <link rel="apple-touch-icon" href="images/${p.iconFile}">
 <link rel="icon" href="images/${p.iconFile}">
+<meta name="apple-mobile-web-app-title" content="${p.name}">
+<title>${p.name} | デジタル名刺</title>
 </head>
 <body>
 <div class="card">
@@ -1879,7 +1882,7 @@ function copyURL(){
   if(navigator.clipboard){ navigator.clipboard.writeText(url).then(()=>showMsg()); }
   else{ const t=document.createElement('textarea');t.value=url;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showMsg(); }
 }
-function showMsg(){ const m=document.getElementById('copyMsg'); m.textContent='URLをコピーしました'; setTimeout(()=>m.textContent='',2500); }
+function showMsg(){ const m=document.getElementById('copyMsg'); if(m){m.textContent='URLをコピーしました'; setTimeout(()=>m.textContent='',2500);} }
 document.querySelectorAll('[data-from],[data-to]').forEach(function(el){var from=el.dataset.from,to=el.dataset.to;if(!from&&!to)return;var today=new Date().toISOString().slice(0,10);if(from&&today<from){el.style.display='none';}if(to&&today>to){el.style.display='none';}});
 <\/script>
 </body>
@@ -1987,6 +1990,7 @@ function buildProfile(p){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="apple-mobile-web-app-title" content="${p.name}">
 <title>${p.name} | プロフィール</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
