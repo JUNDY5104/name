@@ -84,7 +84,7 @@ function copyURL(){
   if(navigator.clipboard){ navigator.clipboard.writeText(url).then(()=>showMsg()); }
   else{ const t=document.createElement('textarea');t.value=url;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showMsg(); }
 }
-function showMsg(){ const m=document.getElementById('copyMsg'); m.textContent='URLをコピーしました'; setTimeout(()=>m.textContent='',2500); }
+function showMsg(){ const m=document.getElementById('copyMsg'); if(m){m.textContent='URLをコピーしました'; setTimeout(()=>m.textContent='',2500);} }
 document.querySelectorAll('[data-from],[data-to]').forEach(function(el){var from=el.dataset.from,to=el.dataset.to;if(!from&&!to)return;var today=new Date().toISOString().slice(0,10);if(from&&today<from){el.style.display='none';}if(to&&today>to){el.style.display='none';}});
 </script>
 </body>
